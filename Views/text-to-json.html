@@ -1,0 +1,83 @@
+<div class="panel panel-primary padding-left-20" id="top">
+    <h1 class="padding-20">Welcome to text to Json converter</h1>
+</div>
+<div class="panel panel-primary padding-left-20">
+    <div>
+        <md-input-container>
+            <label>
+            </label>
+            <md-select ng-model="test" placeholder="1234 - 1234">
+                <md-optgroup>
+                    <md-option value="{{item}}" ng-repeat="item in [1,2,3,4,5]">
+                        {{item}}
+                    </md-option>
+                </md-optgroup>
+            </md-select>
+        </md-input-container>
+    </div>
+
+    <checkboxgroup noofcheckbox="4" modelname="asdasdasd" languagefile = ["No","Yes","None","Both"]>
+
+    </checkboxgroup>
+
+    <div class="padding-20">        
+        <p>
+            Before converting your text please read,
+            <a ng-click="srcollTo('condition')">how to use</a>
+            this converter
+        </p>
+        <textarea class="padding-20" placeholder="Enter your text here"  ng-model="textInput">    
+        </textarea>
+        <div>
+             <button ng-click="convertToJson()">Convert Now</button>
+        </div>        
+    </div>
+    
+    <div class="padding-20">        
+        <p>Your Json here</p>
+        <textarea class="padding-20" ng-model="jsonFile" placeholder="Click the Convert Now button to get Your json"> 
+
+        </textarea>
+    </div>
+</div>
+<div class="panel panel-info padding-left-20" id="condition">
+    <div class="padding-20">
+        <p>Before converting your text please read and fulfill the below condition</p>
+        <ul>
+            <li>You can only convert text file to json, if you have any doc or docx file first convert it
+                to text file.
+                 <a href="https://document.online-convert.com/convert-to-txt" target="blank">Click here</a>
+                 to convert your doc to text
+            </li>
+            <li>4 words from a line will make a key</li>
+            <li>words containing less than 3 characters will not considered as key words, hence small words won't appear in the key</li>
+            <li>Unwanted and hidden characters are automatically removed such "%,#.." as key value of the json object</li>
+            <li>Nested object can be built, to create nested object keep a "-" sign,</li>
+            <li>Example of nested object, example text </li>
+            <li>Name of fruits in the busket</li>
+            <li>-Apple</li>
+            <li>-Bannana</li>
+            <li>Object will be like below</li>
+            <li>"NAME_FRUITS_THE_BUSKET_LIST": {</li>
+            <li>"APPLE": "Apple",</li>
+            <li>"BANNNAN": "Bannan"</li>
+            <li>}</li>
+            <li><a ng-click="srcollTo('top')">Click here</a> to go at top.</li>
+        </ul>
+
+    </div>
+    <div makemandatory>
+        <md-checkbox class="md-primary" ng-model="vm.formData.KYCPEPIsRelative1">
+            <span ng-bind="rty"></span>
+        </md-checkbox>
+        <md-checkbox class="md-primary" ng-model="vm.formData.KYCPEPIsRelative2">
+            <span ng-bind="cvb"></span>
+        </md-checkbox>
+        <md-checkbox class="md-primary" ng-model="vm.formData.KYCPEPIsRelative3">
+            <span ng-bind="sdf"></span>
+        </md-checkbox>
+        <md-checkbox class="md-primary" ng-model="vm.formData.KYCPEPIsRelative4">
+            <span ng-bind="wqe"></span>
+        </md-checkbox>
+    </div>
+</div>

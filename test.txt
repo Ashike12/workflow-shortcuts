@@ -1,0 +1,119 @@
+open a modal
+
+function openShareModal($event, Data) {
+            metaData = Data;
+            $mdDialog.show({
+                templateUrl: metaData.modalViewUrl || shellInfrastructure.getAppViewPath('slpc-share-via-email', 'business.slpc') +"view/slpc-share-via-email-modal.view.html",
+                targetEvent: $event,
+                controller: "slpcSlpcShareViaEmailModalController",
+                controllerAs: "vm",
+                clickOutsideToClose: false,
+                escapeToClose: true,
+                locals: {
+                    contentType: metaData.contentType
+                }
+            }).then(function (answer) {
+            }, function () {
+            });
+        }
+
+modal view
+
+<md-dialog ng-class="{'width-640': vm.$mdMedia('gt-xs')}" class="mobile-fullwidth-dialog border-r-0" aria-label="{{vm.eventList[0].VisitDate | date: 'EEEE, MMMM dd, y'}}">
+    
+    <md-toolbar class="height-56">
+        <div class="md-toolbar-tools" layout="row">            
+            <div flex="90">
+                <div layout="row">
+                    <span>
+                        <md-icon md-font-icon="icon-share" fg-only class=" line-height-fixed-20 font-size-fixed-18 padding-left-8 padding-right-15"></md-icon>
+                    </span>
+                    <h2 class="padding-top-4 font-size-fixed-18 color-black-65" palette-background="white:500" fg-only>{{'EMAIL_SHARING.SHARE' | translate}}</h2>
+                </div>
+            </div>
+            <md-button flex="10" class="md-icon-button" ng-click="vm.cancel()">
+                <md-icon class="font-size-fixed-24 line-height-fixed-24" ng-class="{'padding-left-20': vm.$mdMedia('gt-xs')}" md-font-icon="icon-close"></md-icon>
+            </md-button>            
+        </div>
+    </md-toolbar>
+    <md-dialog-content>
+        <div class="padding-left-56 padding-top-25 padding-right-56 padding-bottom-48" layout="column">
+            <form name="slpcShareViaEmail" ng-submit="">
+                <h2 class="font-size-fixed-18 line-height-fixed-24 text-bold color-black-65">{{'EMAIL_SHARING.SHAREABLE_LINK' | translate}}</h2>
+                <div layout="row" class="height-56">
+                    <input ng-disabled="true" flex="80" type="text" placeholder="" class="border-1 padding-10 border-color-black-3 font-size-fixed-18 border-color-black-3" name="ShareableLink" ng-model="vm.formData.ShareableLink" ng-maxlength="250">
+                    <md-button flex="20" class="border-top-1 border-right-1 border-bottom-1 margin-0 border-color-black-3" ngclipboard data-clipboard-text="{{vm.formData.ShareableLink}}" ngclipboard-success="vm.showToolTipForCopyUrl()">
+                        <span class="color-black-65 text-bold">{{'EMAIL_SHARING.COPY_LINK' | translate}}</span>
+                        <md-tooltip md-direction="top" ng-if="vm.isCopied" md-visible="true">
+                            {{'EMAIL_SHARING.COPIED' | translate}}
+                        </md-tooltip>
+                    </md-button>
+                    <!--<a class="border-top-1 border-right-1 border-bottom-1 margin-0 border-color-black-3" ngclipboard data-clipboard-text="{{document.DetailUrl}}" ngclipboard-success="vm.showToolTip($index)">
+            <md-icon class="font-size-fixed-20 padding-right-0" md-font-icon="icon-content-copy" theme-background="primary" fg-only></md-icon>
+            {{'EMAIL_SHARING.COPY_LINK' | translate}}
+            <md-tooltip md-direction="bottom" ng-if="vm.isCopied[$index]" md-visible="true">
+                {{'EMAIL_SHARING.COPIED' | translate}}
+            </md-tooltip>
+        </a>-->
+                </div>
+
+                <!--<div layout="row" class=" padding-top-0 margin-0 margin-top-8">
+     <span class="padding-right-8 font-size-fixed-16 font-size-0">
+         <md-icon md-font-icon="icon-info color-black-65"></md-icon>
+     </span>
+     <p class="margin-0 font-size-fixed-16">
+         <span>{{'EMAIL_SHARING.COPY_EVENT_LINK' | translate}}</span>
+     </p>
+    </div>-->
+
+
+                <h2 class="padding-top-24 font-size-fixed-18 line-height-fixed-24 text-bold margin-bottom-0 color-black-65">{{'EMAIL_SHARING.COMMENTS' | translate}}</h2>
+
+                <md-input-container class="margin-top-0 margin-bottom-0 full-width">
+                    <label>
+                        <span></span>
+                    </label>
+                    <input name="ShareEmailComments" class="border-color-black-3 font-size-fixed-20 padding-0" type="text" ng-model="vm.formData.ShareEmailComments"
+                           md-maxlength="250" maxlength="250">
+                    <div ng-messages="slpcShareViaEmail.ShareEmailComments.$error" role="alert">
+                        <div ng-message="md-maxlength">
+                            {{'SLPC_PRODUCT.TITLE_SIZE_ERROR' | translate}}
+                        </div>
+                    </div>
+                </md-input-container>                
+
+                <h2 class="padding-top-24 font-size-fixed-18 line-height-fixed-24 text-bold color-black-65">{{'EMAIL_SHARING.EMAIL' | translate}}</h2>
+                <div layout="row" class="height-56">
+                    <div flex="80">
+                        <input type="email" placeholder="{{'EMAIL_SHARING.ENTER_EMAIL' | translate}}" class="height-56 full-width border-1 padding-10 border-color-black-3"
+                               required ng-maxlength="50" ng-pattern="vm.pattern.email" name="email" ng-model="vm.formData.SharedPersonEmailAddress">
+                        <div ng-messages="slpcShareViaEmail.email.$error" role="alert" ng-if="vm.formData.SharedPersonEmailAddress!==null">
+                            <!--<div ng-message="required" palette-background="swiss-life-bordeaux:500" fg-only>
+                                <span class="font-size-fixed-12">{{'EMAIL_SHARING.REQUIRED_MESSAGE' | translate}}</span>
+                            </div>-->
+                            <div ng-message="pattern" palette-background="swiss-life-bordeaux:500" fg-only>
+                                <span class="font-size-fixed-12" style="color:red">{{'EMAIL_SHARING.ERROR_INVALID_EMAIL' | translate}}</span>
+                            </div>
+                            <div ng-message="maxlength" palette-background="swiss-life-bordeaux:500" fg-only>
+                                <span class="font-size-fixed-12" style="color:red">{{'EMAIL_SHARING.ERROR_MAX_LENGTH' | translate}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <md-button flex="20" class="border-top-1 border-right-1 border-bottom-1 margin-0 border-color-black-3" ng-click="vm.sendEmail()"
+                               ng-disabled="slpcShareViaEmail.email.$error.required || slpcShareViaEmail.email.$error.email || slpcShareViaEmail.email.$error.pattern || slpcShareViaEmail.email.$error.maxlength || vm.isInProgress">
+                        <span class="color-black-65 text-bold">{{'EMAIL_SHARING.SEND' | translate}}</span>
+                    </md-button>
+                </div>
+            </form>
+            <!--<div layout="row" class=" padding-top-0 margin-0 margin-top-8">
+        <span class="padding-right-8 font-size-fixed-16 font-size-0">
+            <md-icon md-font-icon="icon-info color-black-65"></md-icon>
+        </span>
+        <p class="margin-0 font-size-fixed-16">
+            <span>{{'EMAIL_SHARING.ENTER_VALID_EMAIL' | translate}}</span>
+        </p>
+    </div>-->
+
+        </div>
+    </md-dialog-content>
+</md-dialog>

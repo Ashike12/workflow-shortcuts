@@ -1,0 +1,47 @@
+<div class="panel panel-primary padding-left-20">
+    <h1>
+        <span ng-bind="message"></span>
+    </h1>
+</div>
+<div class="panel panel-primary">
+    <div class="row padding-20" >
+        <div class="col-sm-6">
+            <button class="col-sm-3" ng-repeat="btn in calculatorButton" ng-click="getInputFromUser(btn)">
+                {{btn}}
+            </button>            
+        </div>        
+        <div class="col-sm-6">
+            <p>Your Expression</p>
+            <input name="expression" ng-model="expression" ng-disabled="true">
+            <div ng-if="isValid">
+                <span>{{errorMessage}}</span>
+            </div>
+            <p ng-if="result!==''">
+                <span ng-bind="previousExpression"></span>
+                <span>=</span>
+                <span ng-bind="result"></span>
+            </p>
+        </div>        
+    </div>  
+    <div class="margin-0 padding-left-20">
+        <button ng-click="showHistory()">Show history</button>
+    </div>
+</div>
+
+<div class="row panel panel-primary padding-left-20" ng-if="isShowHistory">
+    <div class="row">
+        <ul>
+            <li ng-repeat="item in history">{{item}}</li>
+        </ul>
+    </div>
+    <div class="col-sm-8">
+        <button ng-click="hideHistory()">Hide history</button>
+    </div>
+    <div class="col-sm-3">
+        <button ng-click="clearHistory()">Clear History</button>
+    </div>
+    
+</div>
+<div class="row padding-left-20 " ng-if="!isShowHistory">
+    <p>Currently no history to show or you hide the history.</p>
+</div>

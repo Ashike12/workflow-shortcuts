@@ -1,0 +1,102 @@
+// model cleaneup start
+        function getTypedValue(model, value) {
+            if (typeof model == "boolean") {
+                if (typeof value == "boolean") {
+                    return value == true;
+                } else {
+                    return value.toLowerCase() == 'true';
+                }
+            }
+            else if (typeof model == "number") {
+                return _.toNumber(value);
+            }
+            else {
+                var returnValue = "";
+                var isSpatialValue = value ? value.indexOf('~') == 0 : false;
+                if (isSpatialValue) {
+                    if (value == '~true') {
+                        returnValue = true;
+                    } else if (value == '~false') {
+                        returnValue = false;
+                    } else { // for numbber
+                        returnValue = _.toNumber(value.split('~')[1]);
+                    }
+                } else {
+                    if (value == 'undefined') {
+                        returnValue = undefined;
+                    } else {
+                        returnValue = value;
+                    }
+                }
+
+                return returnValue;
+            }
+        }
+
+        function protertyRemover(model, dModel, list) {
+            _.forEach(list, function (value, key) {
+                if (!_.isString(key)) {
+                    return;
+                }
+                var keySplit = key.split('#');
+                var orgKey = keySplit[0];
+                model[orgKey] = dModel[orgKey];
+                if (_.isObject(value)) {
+                    protertyRemover(model, dModel, value);
+                }
+            })
+        }
+
+        function compageModel(model, dModel, list) {
+            _.forEach(list, function (value, key) {
+                if (!_.isString(key)) {
+                    return;
+                }
+                var keySplit = key.split('#');
+                var orgKey = keySplit[0];
+                var mStatusValue = '';
+                if (keySplit.length >= 2) {
+                    mStatusValue = keySplit[1].split('=')[1];
+                } else {
+                    mStatusValue = !_.isObject(value) ? value : "";
+                }
+
+                if (_.toString(model[orgKey]) != mStatusValue) {
+                    protertyRemover(model, dModel, value);
+                } else {
+                    compageModel(model, dModel, value);
+                }
+            })
+        }
+        function defaultModelCreator(model, dModel, list) {
+            _.forEach(list, function (value, key) {
+                if (!_.isString(key)) {
+                    return;
+                }
+
+                var keySplit = key.split('#');
+                var orgKey = keySplit[0];
+                var defaultValue = '';
+                if (keySplit.length == 2) {
+                    defaultValue = keySplit[1].split('=')[1];
+                } else {
+                    defaultValue = !_.isObject(value) ? value : "";
+                }
+                if (keySplit.length == 3) {
+                    defaultValue = keySplit[2].split('=')[1];
+                }
+
+                dModel[orgKey] = getTypedValue(model[orgKey], defaultValue);
+                if (_.isObject(value)) {
+                    defaultModelCreator(model, dModel, value);
+                }
+            })
+        }
+        function cleanupModel(model, list) {
+            var defaultModel = {};
+            defaultModelCreator(model, defaultModel, list);
+            compageModel(model, defaultModel, list);
+            console.log(model);
+        }
+
+        // model cleanup end

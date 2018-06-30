@@ -1,0 +1,70 @@
+var modelTree = {
+            "BCProfessionalOrigin#value=true": {
+                "BCFirstBeneficiarySalutation": "",
+                "BCFirstBeneficiaryRank": "",
+                "BCFirstBeneficiaryPercentage": undefined,
+                "BCFirstBeneficiaryNameOrCorporateName": "",
+                "BCFirstBeneficiaryFirstName": "",
+                "BCFirstBeneficiaryStreetNameAndNumber1st": "",
+                "BCFirstBeneficiaryPostcodeAndTownOrCity": "",
+                "BCCountry#value=Other#default=": {
+                    "BCOtherCountry": ""
+                },
+                "BCFirstBeneficiaryBirthOrIncorporationDate": "111-11-11T00:00:00.000Z",
+                "BCFirstBeneficiaryBirthPlace": "",
+                "BCRelation": "",
+                "BCFirstBeneficiaryRelationToPolicyholder": "",
+                "BCFirstBeneficiarySubsidiaryBeneficiary": "",
+                "BCAddAnotherBeneficiary#value=YES#default=undefined": {
+                    "BCFirstBeneficiarySalutation2nd": "",
+                    "BCFirstBeneficiaryRank2nd": "",
+                    "BCFirstBeneficiaryPercentage2nd": undefined,
+                    "BCFirstBeneficiaryNameOrCorporateName2nd": "",
+                    "BCFirstBeneficiaryFirstName2nd": "",
+                    "BCFirstBeneficiaryStreetNameAndNumber2nd": "",
+                    "BCFirstBeneficiaryPostcodeAndTownOrCity2nd": "",
+                    "BCCountry2nd#value=Other#default=undefined": {
+                        "BCOtherCountry2nd": ""
+                    },
+                    "BCFirstBeneficiaryBirthOrIncorporationDate2nd": "111-11-11T00:00:00.000Z",
+                    "BCFirstBeneficiaryBirthPlace2nd": "",
+                    "BCRelation2nd": "",
+                    "BCFirstBeneficiaryRelationToPolicyholder2nd": "",
+                    "BCFirstBeneficiarySubsidiaryBeneficiary2nd": "",
+                    "BCAddAnotherBeneficiary2nd#value=YES#default=": {
+                        "BCFirstBeneficiarySalutation3rd": "",
+                        "BCFirstBeneficiaryRank3rd": "",
+                        "BCFirstBeneficiaryPercentage3rd": undefined,
+                        "BCFirstBeneficiaryNameOrCorporateName3rd": "",
+                        "BCFirstBeneficiaryFirstName3rd": "",
+                        "BCFirstBeneficiaryStreetNameAndNumber3rd": "",
+                        "BCFirstBeneficiaryPostcodeAndTownOrCity3rd": "",
+                        "BCCountry3rd#value=Other#default=": {
+                            "BCOtherCountry3rd": ""
+                        },
+                        "BCFirstBeneficiaryBirthOrIncorporationDate3rd": "111-11-11T00:00:00.000Z",
+                        "BCFirstBeneficiaryBirthPlace3rd": "",
+                        "BCRelation3rd": "",
+                        "BCFirstBeneficiaryRelationToPolicyholder3rd": "",
+                        "BCFirstBeneficiarySubsidiaryBeneficiary3rd": "",
+                        "BCAddAnotherBeneficiary3rd#value=YES#default=": {
+                            "BCFirstBeneficiarySalutation4th": "",
+                            "BCFirstBeneficiaryRank4th": "",
+                            "BCFirstBeneficiaryPercentage4th": undefined,
+                            "BCFirstBeneficiaryNameOrCorporateName4th": "",
+                            "BCFirstBeneficiaryFirstName4th": "",
+                            "BCFirstBeneficiaryStreetNameAndNumber4th": "",
+                            "BCFirstBeneficiaryPostcodeAndTownOrCity4th": "",
+                            "BCCountry4th#value=Other#default=": {
+                                "BCOtherCountry4th": ""
+                            },
+                            "BCFirstBeneficiaryBirthOrIncorporationDate4th": "111-11-11T00:00:00.000Z",
+                            "BCFirstBeneficiaryBirthPlace4th": "",
+                            "BCRelation4th": "",
+                            "BCFirstBeneficiaryRelationToPolicyholder4th": "",
+                            "BCFirstBeneficiarySubsidiaryBeneficiary4th": ""
+                        }
+                    }
+                }
+            }
+        }

@@ -1,0 +1,26 @@
+<div class="panel panel-primary padding-left-20">
+    <div class="padding-20" layout="flex">
+        <div class="row">
+             <input type="text" class="col-sm-8" placeholder="Search here" ng-model="searchText">
+             <select class="col-sm-3 height-31" ng-model="searchBy">
+                <option value="{{key}}" ng-repeat="(key, value) in employeeList[0]">{{key}}</option>
+             </select>
+        </div>
+        <br><br>
+        <table ng-if="isDataAvailable">
+            <tr>
+                <th>Name</th>
+                <th>BirthDay</th>
+                <th>Salary</th>
+                <th>Joining Date</th>
+            </tr>
+            <tr ng-repeat="data in employeeList | filter:searchText">
+                <td>{{data.NAME}}</td>
+                <td>{{data.BIRTHDAY}}</td>
+                <td>{{data.SALARY}}</td>
+                <td>{{data.JOINING_DATE}}</td>
+            </tr>
+        </table>
+    </div>
+    <h3 class="padding-20" ng-if="!isDataAvailable">Nothing to show</h3>
+</div>
