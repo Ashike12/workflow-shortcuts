@@ -1,11 +1,11 @@
 /// <reference path="../angular.min.js" />
 /// <reference path="../angular-route.min.js" />
 
-(function (angular){
+(function (angular) {
 
     "use strict"
-    
-    function constructor($http){
+
+    function constructor($http) {
 
         function splitLine(line) {
             var lineLen = line.length;
@@ -17,14 +17,25 @@
                     word += line[i];
                     i++;
                 }
-                if (i != 0 && word!="")
+                if (i != 0 && word != "")
                     words.push(word);
                 i++;
             }
             return words;
         }
-        
-        function convertTextToJson(textData){
+
+        function getDuplicateKey(keyList, key){
+            var count = 2;
+            while(keyList[key]){
+                if(key.search(count)>0){
+                    key.replace(count.toString(), (count+1).toString());
+                }
+                count++;
+            }
+            return key;
+        }
+
+        function convertTextToJson(textData, isDuplicateKeyAllowed) {
             //console.log(textData);
             var splitText = textData.split(/\n/);
             var keyList = [];
@@ -32,7 +43,7 @@
             var map = {};
             //console.log(splitText);
             var noOfLine = splitText.length;
-            for(var i=0;i<noOfLine;i++){
+            for (var i = 0; i < noOfLine; i++) {
                 var line = splitText[i];
                 var words = splitLine(line);
                 var wordsLen = words.length;
@@ -60,7 +71,14 @@
                         }
                     }
                 }
-                if (map[Key] == undefined) {
+                if (map[Key] == undefined && !isDuplicateKeyAllowed) {
+                    keyList.push(Key);
+                    keyValyList.push(line);
+                    map[Key] = "";
+                } else {
+                    if (map[key]) {
+                        key = getDuplicateKey(map,key);
+                    }
                     keyList.push(Key);
                     keyValyList.push(line);
                     map[Key] = "";
@@ -88,7 +106,7 @@
                             break;
                         }
                     }
-                    var listItemName = keyList[preIndex-1] + "_LIST";
+                    var listItemName = keyList[preIndex - 1] + "_LIST";
                     newObj[listItemName] = childObj;
                 }
                 else {
@@ -99,15 +117,15 @@
             return JSON.stringify(newObj, null, 4);
         }
 
-        function getData (URL){
+        function getData(URL) {
             return $http({
-                method : "GET",
-                url : URL
+                method: "GET",
+                url: URL
             }).then(function mySuccess(response) {
                 return response.data;
             }, function myError(response) {
                 return response.statusText;
-            });    
+            });
         }
 
         this.getData = getData;
