@@ -114,6 +114,12 @@ textarea {
 .padding-left-20 {
     padding-left: 20px;
 }
+.padding-right-250 {
+    padding-right: 250px;
+}
+.padding-top-4 {
+    padding-top: 4px;
+}
 
 .text-bold{
     font-weight: bold;

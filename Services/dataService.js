@@ -26,9 +26,11 @@
 
         function getDuplicateKey(keyList, key){
             var count = 2;
-            while(keyList[key]){
-                if(key.search(count)>0){
-                    key.replace(count.toString(), (count+1).toString());
+            key+= ('_' + count);
+            count++;
+            while(keyList[key] != undefined){
+                if(key.search((count-1))>0){
+                   key = key.replace((count-1), (count));
                 }
                 count++;
             }
@@ -36,6 +38,9 @@
         }
 
         function convertTextToJson(textData, isDuplicateKeyAllowed) {
+            if(!textData){
+                return;
+            }
             //console.log(textData);
             var splitText = textData.split(/\n/);
             var keyList = [];
@@ -71,13 +76,13 @@
                         }
                     }
                 }
-                if (map[Key] == undefined && !isDuplicateKeyAllowed) {
+                if (map[Key] == undefined || !isDuplicateKeyAllowed) {
                     keyList.push(Key);
                     keyValyList.push(line);
                     map[Key] = "";
                 } else {
-                    if (map[key]) {
-                        key = getDuplicateKey(map,key);
+                    if (map[Key] != undefined) {
+                        Key = getDuplicateKey(map,Key);
                     }
                     keyList.push(Key);
                     keyValyList.push(line);

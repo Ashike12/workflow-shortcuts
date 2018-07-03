@@ -19,20 +19,29 @@
     <checkboxgroup noofcheckbox="4" modelname="asdasdasd" languagefile = ["No","Yes","None","Both"]>
 
     </checkboxgroup>
-
-    <div class="padding-20">        
-        <p>
-            Before converting your text please read,
-            <a ng-click="srcollTo('condition')">how to use</a>
-            this converter
-        </p>
-        <textarea class="padding-20" placeholder="Enter your text here"  ng-model="textInput">    
-        </textarea>
-        <div>
-             <button ng-click="convertToJson()">Convert Now</button>
-        </div>        
+    <div layout="column">
+        <div class="padding-20">        
+            <p>
+                Before converting your text please read,
+                <a ng-click="srcollTo('condition')">how to use</a>
+                this converter
+            </p>
+            <textarea class="padding-20" placeholder="Enter your text here"  ng-model="textInput">    
+            </textarea>                            
+        </div>
+        <div class="padding-left-20" layout="row">
+            <md-checkbox class="padding-top-4" flex="50" ng-model="isDuplicateKeyAllowed">
+                Allow duplicate keys
+            </md-checkbox>  
+            <div flex="20">
+                <div ng-class="{'padding-right-250': $mdMedia('gt-xs')}" flex="50">
+                    <md-button class="md-raised md-primary" ng-click="convertToJson()">Convert Now</md-button>
+                </div> 
+            </div>
+        </div>       
+        
+        
     </div>
-    
     <div class="padding-20">        
         <p>Your Json here</p>
         <textarea class="padding-20" ng-model="jsonFile" placeholder="Click the Convert Now button to get Your json"> 

@@ -4,13 +4,15 @@
 
     "use strict"
 
-    function constructor($scope, $anchorScroll, $location, dataService){
+    function constructor($scope, $anchorScroll, $location, $mdMedia, dataService){
 
         var vm = $scope;
         vm.jsonFile = "";
+        vm.$mdMedia = $mdMedia;
     
         function convertToJson(){
-            vm.jsonFile = dataService.convertTextToJson(vm.textInput);
+            debugger;
+            vm.jsonFile = dataService.convertTextToJson(vm.textInput, vm.isDuplicateKeyAllowed);
         }
     
         function srcollTo(scrollLocation){
@@ -21,7 +23,7 @@
         vm.convertToJson = convertToJson;
         vm.srcollTo = srcollTo;
     }
-    constructor.inject = ["$scope", "$anchorScroll", "$location", "dataService"];
+    constructor.inject = ["$scope", "$anchorScroll", "$location", "$mdMedia", "dataService"];
     app.controller('textToJsonController', constructor);
 
 })()
