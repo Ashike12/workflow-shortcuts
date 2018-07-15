@@ -1,0 +1,4 @@
+var errorFields = document.querySelectorAll('[ng-message]');
+            if(errorFields && errorFields.length>0){
+                errorFields[0].scrollIntoView(false);
+            }
