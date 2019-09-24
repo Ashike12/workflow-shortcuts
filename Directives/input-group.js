@@ -16,7 +16,7 @@
             },
             link: link,
             restrict: 'EA',
-            template: '<h1>aaaaaaaaaaaaaaaaaas</h1>'
+            template: '<h1></h1>'
         };
         return directive;
 
